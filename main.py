@@ -31,9 +31,6 @@ def main():
         print(get_persona_strategy(name, repo.personas, msg))
         print("\n")
         
-    
-    
-
 
 
 if __name__ == "__main__":

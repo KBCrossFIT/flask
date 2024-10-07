@@ -1,7 +1,7 @@
+from config import api_key
 from openai import OpenAI
 
-api_key
-client = OpenAI(api_key)
+client = OpenAI(api_key = api_key)
 
 def get_persona_strategy(persona_id, personas, user_input):
     persona_id = persona_id.lower()
