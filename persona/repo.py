@@ -1,4 +1,4 @@
-from youtube_transcript import get_video_transcript
+from persona.youtube_transcript import get_video_transcript
 
 class persona_repo:
 

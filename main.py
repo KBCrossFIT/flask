@@ -1,5 +1,5 @@
-from repo import persona_repo
-from persona_prompt import get_persona_strategy
+from persona.repo import persona_repo
+from persona.persona_prompt import get_persona_strategy
 
 def main():
     
