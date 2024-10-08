@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pypfopt.expected_returns import mean_historical_return
 from pypfopt.risk_models import CovarianceShrinkage
 from pypfopt.efficient_frontier import EfficientFrontier
@@ -9,7 +10,10 @@ fund_list = [
     ["펀드B", 0.01, 0.015, 0.02, 0.03, 2, 0.005, 0.01, 1000000],
     ["펀드C", 0.025, 0.035, 0.045, 0.06, 4, 0.015, 0.02, 1000000],
     ["펀드D", 0.015, 0.025, 0.035, 0.04, 5, 0.02, 0.025, 1000000],
-    ["펀드E", 0.03, 0.04, 0.05, 0.07, 1, 0.005, 0.012, 1000000]
+    ["펀드E", 0.03, 0.04, 0.05, 0.07, 1, 0.005, 0.012, 1000000],
+    ["펀드F", 0.02, 0.025, 0.03, np.nan, 2, 0.01, 0.015, 1000000],
+    ["펀드G", 0.01, 0.015, np.nan, np.nan, 3, 0.005, 0.01, 1000000],
+    ["펀드H", 0.005, np.nan, np.nan, np.nan, 4, 0.002, 0.005, 1000000]
 ]
 
 # 데이터프레임으로 변환
@@ -17,9 +21,22 @@ df = pd.DataFrame(fund_list, columns=["이름", "1개월 수익률", "3개월 �
 
 # 연환산 수익률 계산
 def annualized_return(row):
-    return row['12개월 수익률']  # 12개월 수익률을 연환산 수익률로 사용
+    if pd.notnull(row['12개월 수익률']):
+        return row['12개월 수익률']
+    elif pd.notnull(row['6개월 수익률']):
+        return (1 + row['6개월 수익률'])**2 - 1
+    elif pd.notnull(row['3개월 수익률']):
+        return (1 + row['3개월 수익률'])**4 - 1
+    elif pd.notnull(row['1개월 수익률']):
+        return (1 + row['1개월 수익률'])**12 - 1
+    else:
+        return np.nan  # 모든 수익률이 없는 경우 NaN 반환
 
+# 연환산 수익률 컬럼 추가
 df['연환산 수익률'] = df.apply(annualized_return, axis=1)
+
+# 결과 출력
+print(df[['이름', '연환산 수익률']])
 
 # 변동성 계산 함수
 def calculate_volatility(row):

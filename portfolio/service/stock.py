@@ -17,7 +17,7 @@ df = pd.concat(df_list, axis=1)
 df.columns = [name for name, code in stock_list]
 df.head(10)
 
-mu = mean_historical_return(df);
+mu = mean_historical_return(df)
 S = CovarianceShrinkage(df).ledoit_wolf()
 
 ef = EfficientFrontier(mu, S)
@@ -28,4 +28,3 @@ print(cleaned_weights)
 
 performance = ef.portfolio_performance()
 print(performance)
-
