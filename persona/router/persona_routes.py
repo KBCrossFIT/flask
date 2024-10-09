@@ -40,7 +40,7 @@ def register_persona():
 @persona_routes.route('/api/persona', methods=['POST'])
 def get_persona_by_id():
     data = request.json
-    id = data.get('id')
+    id = data.get('id').lower()
     message = data.get('message')
 
     if id not in persona_cache:
