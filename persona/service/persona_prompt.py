@@ -1,17 +1,15 @@
-from config import api_key
+from persona.gpt_config import api_key
 from openai import OpenAI
 
 client = OpenAI(api_key = api_key)
 
 
 def make_persona_prompt(persona_data):
-    prompt = (
-        f"너는 이제 {persona_data["name"]}입니다."
-    )
+    prompt = '너는 이제 {persona_data["name"]}입니다.'
     
     # youtube 스크립트 제외 속성 prompt 추가
     for attribute in persona_data["attributes"]:
-        if not (attribute.startswith('script')):
+        if not attribute.startswith('script'):
             prompt += persona_data["attributes"][attribute]
         
     prompt += (
@@ -19,8 +17,8 @@ def make_persona_prompt(persona_data):
                "다음 youtube 스크립트에서 당신의 말투와 철학을 반영해서 대답해 주되 대화의 흐름에 맞는 말만 하세요"
     )
 
-    prompt += (f"{persona_data["attributes"]["script_1"]}")
-    prompt += (f"{persona_data["attributes"]["script_2"]}")
+    prompt += persona_data['attributes']['script_1']
+    prompt += persona_data['attributes']['script_2']
     
     return prompt
 
