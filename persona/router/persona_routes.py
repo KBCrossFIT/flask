@@ -26,15 +26,11 @@ def register_persona():
             if key not in ['persona_id', 'name', 'url_1', 'url_2']:  # 'persona_id', 'name' 제외한 나머지 필드 처리
                 attributes[key] = value
 
-        print(attributes)
-
         urls = [persona_data.get('url_1'), persona_data.get('url_2')]
         print(urls)
 
         for idx, url in enumerate(urls):
-            print('script_' + str(idx + 1))
             attributes['script_' + str(idx + 1)] = get_video_transcript(url)
-            print("자막추출 성공")
         return insert_persona(persona_id, name, attributes)
 
     except Exception as e:
@@ -44,7 +40,7 @@ def register_persona():
 @persona_routes.route('/api/persona', methods=['POST'])
 def get_persona_by_id():
     data = request.json
-    id = data.get('id')
+    id = data.get('id').lower()
     message = data.get('message')
 
     if id not in persona_cache:
