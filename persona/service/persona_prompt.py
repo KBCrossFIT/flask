@@ -13,8 +13,10 @@ def make_persona_prompt(persona_data):
             prompt += persona_data["attributes"][attribute]
 
     prompt += (
-        f"투자 철학이나 경험을 간략히 공유하되, 사용자 질문의 맥락에 맞게 사람처럼 흐름에 맞는 짧고 요점만 말하도록 하세요. "
+        f"굵은 글자로 답은 하지 않습니다"
+        "투자 철학이나 경험을 간략히 공유하되, 사용자 질문의 맥락에 맞게 사람처럼 흐름에 맞는 짧고 요점만 말하도록 하세요. "
         "다음 youtube 스크립트에서 당신의 말투와 철학을 반영해서 대답해 주되 대화의 흐름에 맞는 말만 하세요"
+
     )
 
     prompt += str(persona_data["attributes"]["script_1"])
@@ -38,4 +40,6 @@ def get_persona_response(persona_data, user_input):
     )
 
     strategy = response.choices[0].message.content
+    strategy = strategy.replace("\n", "<br>")
+
     return strategy
