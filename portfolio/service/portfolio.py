@@ -13,6 +13,17 @@ from portfolio.service.stock import calculate_stock
 
 # portfolio_items = [
 #     {
+#         "productId": 3,
+#         "productType": "B",
+#         "bondExprDt": "20271031", 
+#         "irtChngDcdNm": "고정-복리",  
+#         "bondSrfcInrt": 1.00,  
+#         "intPayCyclCtt": "12개월", 
+#         "clprPrc": 9592.50, 
+#         "kbpScrsItmsKcdNm": "AAA", 
+#         "amount": 1000000 
+#     },
+#     {
 #         "productId": 1,
 #         "productType": "F",
 #         "yield1": 8.85, 
@@ -31,7 +42,7 @@ from portfolio.service.stock import calculate_stock
 #         "saveTerm": 12, 
 #         "intrType": "복리", 
 #         "intrRate": 3.50,
-#         "amount": 1000000, 
+#         "amount": 1000000 
 #     },
 #     {
 #         "stockCode": "035720", 
@@ -80,7 +91,6 @@ def calculate_portfolio(portfolio_items):
             temp = calculate_stock(portfolio_items[i])
 
         # temp return 값은 expectedReturn, riskLevel, amount
-
         portfolio_item['expectedReturn'] = temp['expectedReturn']
         mu.append(temp['expectedReturn'])
         portfolio_item['riskLevel'] = temp['riskLevel']
@@ -91,7 +101,6 @@ def calculate_portfolio(portfolio_items):
     
     for i in range(len(amount)):
         weights.append(amount[i] / portfolio['total'])
-    
     
     portfolio['expectedReturn'] = round(np.dot(mu, weights), 2)
     portfolio['riskLevel'] = round(np.dot(risks, weights), 2)
