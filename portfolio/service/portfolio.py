@@ -40,6 +40,8 @@ from portfolio.service.stock import calculate_stock
 # ]
 
 def calculate_portfolio(portfolio_items):
+    print(portfolio_items)
+    
     mu = []
     risks = []
     amount = []
@@ -93,6 +95,8 @@ def calculate_portfolio(portfolio_items):
     
     portfolio['expectedReturn'] = round(np.dot(mu, weights), 2)
     portfolio['riskLevel'] = round(np.dot(risks, weights), 2)
+    
+    print(portfolio)
     
     return portfolio
 
