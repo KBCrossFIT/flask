@@ -72,7 +72,7 @@ def calculate_portfolio(portfolio_items):
         temp = []
         portfolio_item["productId"] = portfolio_items[i].get("productId")
         portfolio_item["stockCode"] = portfolio_items[i].get("stockCode")
-        portfolio_item["amount"] = portfolio_items[i].get("amount")        
+        portfolio_item["productType"] = portfolio_items[i].get("productType")       
         if(portfolio_items[i].get('productType') == "S"):
             temp = calculate_saving(portfolio_items[i])
         elif(portfolio_items[i].get('productType') == "F"):
@@ -87,6 +87,7 @@ def calculate_portfolio(portfolio_items):
             temp = calculate_stock(portfolio_items[i])
 
         # temp return 값은 expectedReturn, riskLevel, amount
+        portfolio_item['amount'] = float(temp['amount'])
         portfolio_item['expectedReturn'] = temp['expectedReturn']
         mu.append(temp['expectedReturn'])
         portfolio_item['riskLevel'] = temp['riskLevel']
