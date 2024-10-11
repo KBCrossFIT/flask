@@ -45,6 +45,7 @@ from portfolio.service.stock import calculate_stock
 #     }
 # ]
 
+
 def calculate_portfolio(portfolio_items):
     print(portfolio_items)
     
