@@ -3,7 +3,6 @@ import FinanceDataReader as fdr
 
 from pypfopt.expected_returns import mean_historical_return
 from datetime import datetime, timedelta
-from scipy.stats import norm
 
 # stock = {
 #     "stockCode": '035720',  # 주식코드
@@ -18,7 +17,7 @@ def calculate_stock(stock):
     }
 
     ticker = stock['stockCode']
-    end_date = (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d')
+    end_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     start_date = (datetime.now() - timedelta(days=1100)).strftime('%Y-%m-%d')
 
     # 주식 데이터 가져오기
