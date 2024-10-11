@@ -1,10 +1,5 @@
 import pandas as pd
 import numpy as np
-import FinanceDataReader as fdr
-
-from pypfopt.expected_returns import mean_historical_return
-from pypfopt.risk_models import CovarianceShrinkage
-from pypfopt.efficient_frontier import EfficientFrontier
 
 from portfolio.service.saving import calculate_saving
 from portfolio.service.fund import calculate_fund
@@ -103,7 +98,19 @@ def calculate_portfolio(portfolio_items):
         weights.append(amount[i] / portfolio['total'])
     
     portfolio['expectedReturn'] = round(np.dot(mu, weights), 2)
-    portfolio['riskLevel'] = round(np.dot(risks, weights), 2)
+    riskLevel = round(np.dot(risks, weights), 2)
+    if(riskLevel > 5.3):
+        portfolio['riskLevel'] = 6
+    elif(riskLevel > 4.3):
+        portfolio['riskLevel'] = 5
+    elif(riskLevel > 3.3):
+        portfolio['riskLevel'] = 4
+    elif(riskLevel > 2.3):
+        portfolio['riskLevel'] = 3
+    elif(riskLevel > 1.3):
+        portfolio['riskLevel'] = 2
+    else:
+        portfolio['riskLevel'] = 1
     
     print(portfolio)
     
