@@ -116,7 +116,6 @@ def calculate_portfolio(portfolio_items):
         portfolio['riskLevel'] = 1
     
     print(portfolio)
-    
     return portfolio
 
 # print(calculate(portfolio_items))
