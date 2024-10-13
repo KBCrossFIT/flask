@@ -17,10 +17,10 @@ def calculate_stock(stock):
         'amount': 0
     }
     
-    # 주식코드로 개별 종목에 대해 3년치 데이터를 받아옴(1년 영업일 252일 기준으로 3년 전부터 오늘 기준 1영업일 전까지)
+    # 주식코드로 개별 종목에 대해 3년치 데이터를 받아옴(1년 영업일 252일 기준으로 3년 전부터 오늘 기준 2영업일 전까지)
     ticker = stock['stockCode']
     start_date = (datetime.today() - BDay(756)).strftime('%Y-%m-%d')
-    end_date = (datetime.today() - BDay(1)).strftime('%Y-%m-%d')
+    end_date = (datetime.today() - BDay(2)).strftime('%Y-%m-%d')
     
     # 주식 데이터 가져오기
     df = fdr.DataReader(ticker, start_date, end_date)
