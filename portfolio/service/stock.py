@@ -2,12 +2,13 @@ import numpy as np
 import FinanceDataReader as fdr
 
 from pypfopt.expected_returns import mean_historical_return
-from datetime import datetime, timedelta
+from datetime import datetime
+from pandas.tseries.offsets import BDay
 
-# stock = {
-#     "stockCode": '035720',  # 주식코드
-#     "amount": 10  # 주식 수
-# }
+stock = {
+    "stockCode": '035720',  # 주식코드
+    "amount": 10  # 주식 수
+}
 
 def calculate_stock(stock):
     calc_data = {
@@ -15,11 +16,12 @@ def calculate_stock(stock):
         'riskLevel': 0,
         'amount': 0
     }
-
+    
+    # 주식코드로 개별 종목에 대해 3년치 데이터를 받아옴(1년 영업일 252일 기준으로 3년 전부터 오늘 기준 1영업일 전까지)
     ticker = stock['stockCode']
-    end_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    start_date = (datetime.now() - timedelta(days=1100)).strftime('%Y-%m-%d')
-
+    start_date = (datetime.today() - BDay(756)).strftime('%Y-%m-%d')
+    end_date = (datetime.today() - BDay(1)).strftime('%Y-%m-%d')
+    
     # 주식 데이터 가져오기
     df = fdr.DataReader(ticker, start_date, end_date)
 
@@ -57,4 +59,4 @@ def calculate_stock(stock):
     return calc_data
 
 # 계산 결과 출력
-# print(calculate_stock(stock))
+print(calculate_stock(stock))

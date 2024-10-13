@@ -93,6 +93,7 @@ def calculate_portfolio(portfolio_items):
         portfolio_item['riskLevel'] = temp['riskLevel']
         risks.append(temp['riskLevel'])
         portfolio['total'] += temp['amount']
+        portfolio['total'] = float(portfolio['total'])
         amount.append(temp['amount'])
         portfolio["portfolioItems"].append(portfolio_item)
     
@@ -115,7 +116,6 @@ def calculate_portfolio(portfolio_items):
         portfolio['riskLevel'] = 1
     
     print(portfolio)
-    
     return portfolio
 
 # print(calculate(portfolio_items))
